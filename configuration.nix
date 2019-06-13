@@ -12,6 +12,7 @@
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/sda";
   boot.loader.grub.useOSProber = true;
+  #boot.loader.grub.efiInstallAsRemovable = true;
 
   networking = {
       hostName = "nixos";
@@ -104,12 +105,10 @@
   git
   pandoc
   pkgs.powershell
+  telegram-desktop
   #pkgs.jetbrains.rider
   ];
 
-  environment.sessionVariables = {
-  DOTNET_ROOT = "${pkgs.dotnetCorePackages.sdk_10_0-bin}/share/dotnet";
-  };
 
 
   programs.nix-ld.enable = true;
@@ -123,7 +122,7 @@
   system.stateVersion = "25.11"; # Did you read the comment?
   nixpkgs.config.allowUnfree = true;
   virtualisation.docker.enable = true;
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.experimental-features = ["nix-command"];
 
   virtualisation.oci-containers = {
   backend = "docker";
@@ -141,19 +140,19 @@
        ];
 
     };
-  pgadmin = {
-    autoStart = true;
-    image = "dpage/pgadmin4";
-    ports = ["8085:80"];
-    volumes = [
-        "/var/lib/pgadmin-data:/var/lib/pgadmin"
-      ];
-    environment = {
-        PGADMIN_DEFAULT_EMAIL = "admin@admin.com";
-        PGADMIN_DEFAULT_PASSWORD = "password";
-      };
-    dependsOn = ["postgres"];
-    };
+  # pgadmin = {
+  #   autoStart = true;
+  #   image = "dpage/pgadmin4";
+  #   ports = ["8085:80"];
+  #   volumes = [
+  #       "/var/lib/pgadmin-data:/var/lib/pgadmin"
+  #     ];
+  #   environment = {
+  #       PGADMIN_DEFAULT_EMAIL = "admin@admin.com";
+  #       PGADMIN_DEFAULT_PASSWORD = "password";
+  #     };
+  #   dependsOn = ["postgres"];
+  #   };
   };
 
  
