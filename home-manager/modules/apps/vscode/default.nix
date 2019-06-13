@@ -7,6 +7,7 @@ let
 
   csharpExtensions = with pkgs.vscode-extensions;[
     ms-dotnettools.csharp
+    ms-dotnettools.csdevkit
     ms-dotnettools.vscode-dotnet-runtime
   ];
 
@@ -18,8 +19,7 @@ in
 {
   programs.vscode = {
     enable = true;
-    mutableExtensionDir = true;
-    package = "vscode";
+    mutableExtensionsDir = true;
     profiles = {
       default = {
         enableUpdateCheck = false;
