@@ -117,5 +117,39 @@ ms-dotnettools.csharp
   nixpkgs.config.allowUnfree = true;
   virtualisation.docker.enable = true;
   nix.settings.experimental-features = ["nix-command" "flakes"];
+
+  virtualisation.oci-containers = {
+  backend = "docker";
+  containers = {
+    postgresql = {
+      autoStart = true;
+      image = "postgres:16";
+      ports=["5432:5432"];
+      environment = {
+          POSTGRES_USER= "postgres" ;
+          POSTGRES_PASSWORD ="postgres";
+       };
+      volumes = [
+            "/var/lib/postgres-data:/var/lib/postgresql/data"
+       ];
+
+    };
+  pgadmin = {
+    autoStart = true;
+    image = "dpage/pgadmin4";
+    ports = ["8085:80"];
+      volumes = [
+        "/var/lib/pgadmin-data:/var/lib/pgadmin"
+      ];
+      environment = {
+        PGADMIN_DEFAULT_EMAIL = "admin@admin.com";
+        PGADMIN_DEFAULT_PASSWORD = "password";
+      };
+    };
+  };
+
+ 
+  
+};
 }
 
