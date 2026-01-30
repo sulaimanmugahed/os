@@ -7,12 +7,15 @@
       ./hardware-configuration.nix
     ];
 
+
   # Bootloader.
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/sda";
   boot.loader.grub.useOSProber = true;
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking = {
+      hostName = "nixos";
+  }; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -89,21 +92,23 @@
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
-vscode
-(dotnetCorePackages.combinePackages [
-dotnetCorePackages.sdk_10_0-bin
-dotnetCorePackages.sdk_9_0-bin
-])
+  vscode
+  (dotnetCorePackages.combinePackages [
+  dotnetCorePackages.sdk_10_0-bin
+  dotnetCorePackages.sdk_9_0-bin
+  ])
 
-pkgs.nodePackages_latest.nodejs
-git
-icu
-zlib
-#pkgs.jetbrains.rider
+  pkgs.nodePackages_latest.nodejs
+  git
+  pandoc
+  pkgs.powershell
+  #pkgs.jetbrains.rider
   ];
-programs.vscode.extensions = with pkgs.vscode-extensions; [
-ms-dotnettools.csharp
-];
+
+  environment.sessionVariables = {
+  DOTNET_ROOT = "${pkgs.dotnetCorePackages.sdk_10_0-bin}/share/dotnet";
+  };
+
 
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
@@ -121,7 +126,7 @@ ms-dotnettools.csharp
   virtualisation.oci-containers = {
   backend = "docker";
   containers = {
-    postgresql = {
+    postgres = {
       autoStart = true;
       image = "postgres:16";
       ports=["5432:5432"];
@@ -138,13 +143,14 @@ ms-dotnettools.csharp
     autoStart = true;
     image = "dpage/pgadmin4";
     ports = ["8085:80"];
-      volumes = [
+    volumes = [
         "/var/lib/pgadmin-data:/var/lib/pgadmin"
       ];
-      environment = {
+    environment = {
         PGADMIN_DEFAULT_EMAIL = "admin@admin.com";
         PGADMIN_DEFAULT_PASSWORD = "password";
       };
+    dependsOn = ["postgres"];
     };
   };
 
