@@ -20,7 +20,7 @@
 
       hosts = [
         {
-          hostname = "laptop";
+          hostname = "nixos";
           stateVersion = "25.11";
         }
       ];
@@ -80,5 +80,7 @@
         )
         { }
         hosts;
+
+
     };
 }
