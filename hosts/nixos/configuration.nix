@@ -5,7 +5,6 @@
     [
       ./hardware-configuration.nix
       ../../modules
-
     ];
 
   mySystem.hostInfo.enable = true;
