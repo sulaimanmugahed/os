@@ -3,27 +3,13 @@
 {
   imports =
     [
-      # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../../modules
+
     ];
 
+  mySystem.hostInfo.enable = true;
 
-  # Bootloader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sda";
-  boot.loader.grub.useOSProber = true;
-
-  networking = {
-    hostName = "nixos";
-  }; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
-  networking.networkmanager.enable = true;
 
   # Set your time zone.
   time.timeZone = "Asia/Aden";
@@ -71,29 +57,11 @@
 
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.sulaiman = {
-    isNormalUser = true;
-    description = "Sulaiman Mugahed";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
-    packages = with pkgs; [
-      kdePackages.kate
-      #  thunderbird
-    ];
-  };
-
-
-  # Install firefox.
   programs.firefox.enable = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+
   environment.systemPackages = with pkgs; [
-    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    #  wget
+
     vscode
     (dotnetCorePackages.combinePackages [
       dotnetCorePackages.sdk_10_0-bin
@@ -122,11 +90,8 @@
 
   services.openssh.enable = true;
 
-
-  system.stateVersion = "25.11"; # Did you read the comment?
-  nixpkgs.config.allowUnfree = true;
   virtualisation.docker.enable = true;
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [ "nix-command" ];
 
   virtualisation.oci-containers = {
     backend = "docker";
@@ -144,22 +109,7 @@
         ];
 
       };
-      # pgadmin = {
-      #   autoStart = true;
-      #   image = "dpage/pgadmin4";
-      #   ports = ["8085:80"];
-      #   volumes = [
-      #       "/var/lib/pgadmin-data:/var/lib/pgadmin"
-      #     ];
-      #   environment = {
-      #       PGADMIN_DEFAULT_EMAIL = "admin@admin.com";
-      #       PGADMIN_DEFAULT_PASSWORD = "password";
-      #     };
-      #   dependsOn = ["postgres"];
-      #   };
     };
-
-
 
   };
 }

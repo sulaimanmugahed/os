@@ -1,0 +1,84 @@
+{
+  description = "My Root OS flake";
+
+
+
+  inputs = {
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+  };
+
+  outputs =
+    { nixpkgs
+    , nixpkgs-unstable
+    , ...
+    }@inputs:
+    let
+      system = "x86_64-linux";
+      homeStateVersion = "25.11";
+      user = "sulaiman";
+
+      hosts = [
+        {
+          hostname = "laptop";
+          stateVersion = "25.11";
+        }
+      ];
+
+
+      pkgConfig = {
+        allowUnfree = true;
+        allowBroken = false;
+        allowInsecure = false;
+        allowUnsupportedSystem = false;
+      };
+
+      constants = import ./shared/constants.nix;
+
+      pkgs = (
+        import nixpkgs {
+          inherit system;
+          config = {
+            allowUnfree = true;
+          };
+        }
+      );
+      pkgs-unstable = (
+        import nixpkgs-unstable {
+          inherit system;
+          config = {
+            allowUnfree = true;
+          };
+        }
+      );
+
+      makeSystem =
+        { hostname, stateVersion }:
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = {
+            inherit
+              inputs
+              stateVersion
+              hostname
+              user
+              pkgs
+              pkgConfig
+              constants
+              ;
+          };
+          modules = [ ./hosts/${hostname}/configuration.nix ];
+        };
+
+
+    in
+    {
+      nixosConfigurations = nixpkgs.lib.foldl'
+        (
+          configs: host:
+            configs // { "${host.hostname}" = makeSystem { inherit (host) hostname stateVersion; }; }
+        )
+        { }
+        hosts;
+    };
+}
