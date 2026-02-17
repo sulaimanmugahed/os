@@ -7,7 +7,7 @@
     ./local.nix
     ./plasma.nix
     ./xserver.nix
-    ./nixid
+    ./nixid.nix
     ./pipewire.nix
     ./virtualisation.nix
   ];

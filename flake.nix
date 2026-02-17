@@ -2,13 +2,13 @@
   description = "My Root OS flake";
 
   inputs = {
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    # nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
   };
 
   outputs =
     { nixpkgs
-    , nixpkgs-unstable
+      # , nixpkgs-unstable
     , ...
     }@inputs:
     let
@@ -40,14 +40,14 @@
           };
         }
       );
-      pkgs-unstable = (
-        import nixpkgs-unstable {
-          inherit system;
-          config = {
-            allowUnfree = true;
-          };
-        }
-      );
+      # pkgs-unstable = (
+      #   import nixpkgs-unstable {
+      #     inherit system;
+      #     config = {
+      #       allowUnfree = true;
+      #     };
+      #   }
+      # );
 
       makeSystem =
         { hostname, stateVersion }:
