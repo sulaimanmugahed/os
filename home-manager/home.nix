@@ -18,15 +18,22 @@
 
   programs = {
     home-manager.enable = true;
+
+    git = {
+      enable = true;
+      settings = {
+        user = {
+          inherit (constants.user) name email;
+        };
+        alias = {
+          pu = "push";
+          cm = "commit";
+        };
+      };
+    };
+
+
   };
 
-  programs.git = {
-    enable = true;
-    userName = constants.user.username;
-    userEmail = constants.user.email;
-    aliases = {
-      pu = "push";
-      cm = "commit";
-    };
-  };
+
 }
