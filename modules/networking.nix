@@ -6,5 +6,6 @@ with lib;
 
   networking = {
     networkmanager.enable = true;
+    firewall.checkReversePath = false;
   };
 }

@@ -30,11 +30,13 @@
     telegram-desktop
     nixd
     nixpkgs-fmt
+    wireguard-tools
+    protonvpn-gui
     #pkgs.jetbrains.rider
   ];
 
 
   services.openssh.enable = true;
- 
+
 }
 
