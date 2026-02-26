@@ -4,10 +4,16 @@
   inputs = {
     # nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:nixos/nixpkgs/078d69f03934859a181e81ba987c2bb033eebfc5";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
     { nixpkgs
+    , home-manager
+
       # , nixpkgs-unstable
     , ...
     }@inputs:
@@ -74,6 +80,31 @@
         (
           configs: host:
             configs // { "${host.hostname}" = makeSystem { inherit (host) hostname stateVersion; }; }
+        )
+        { }
+        hosts;
+
+      homeConfigurations = nixpkgs.lib.foldl'
+        (
+          configs: host:
+            configs
+            // {
+              "${user}@${host.hostname}" = home-manager.lib.homeManagerConfiguration {
+                inherit pkgs;
+                extraSpecialArgs = {
+                  inherit
+                    inputs
+                    homeStateVersion
+                    user
+                    constants
+                    ;
+                  inherit (host) hostname;
+                };
+                modules = [
+                  ./home-manager/home.nix
+                ];
+              };
+            }
         )
         { }
         hosts;

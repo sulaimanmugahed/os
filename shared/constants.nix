@@ -1,6 +1,6 @@
 {
   user = {
-    name = "sulaiman";
+    username = "sulaiman";
     email = "hg123om5@gmail.com";
     githubEmail = "hg123om5@gmail.com";
   };
