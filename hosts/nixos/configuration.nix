@@ -17,7 +17,6 @@
 
   environment.systemPackages = with pkgs; [
 
-    vscode
     pkgs.nodePackages_latest.nodejs
     git
     pandoc

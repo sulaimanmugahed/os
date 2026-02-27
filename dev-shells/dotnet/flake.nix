@@ -35,32 +35,15 @@
         devShells.default = pkgs.mkShell
           {
             name = "dotnet";
-            packages = deps;
-            nativeBuildInputs = with pkgs;[
-              nix-ld
-            ];
+            nativeBuildInputs = [
+            ] ++ deps;
             NIX_LD_LIBRARY_PATH =
               with pkgs; lib.makeLibraryPath (
                 [
                   stdenv.cc.cc
-                ]
+                ] ++ deps
               );
-            LD_LIBRARY_PATH =
-              with pkgs; lib.makeLibraryPath
-                (
-                  [
-                    stdenv.cc.cc
-                    fontconfig
-                    xorg.libX11
-                    xorg.libICE
-                    xorg.libSM
-                    libGL
-                    gtk4
-                    libadwaita
-                  ]
-                );
             NIX_LD = "${pkgs.stdenv.cc.libc_bin}/bin/ld.so";
-
             DOTNET_ROOT = "${dotnetPkg}/share/dotnet";
             DOTNET_PATH = "${dotnetPkg}/bin/dotnet";
           };
