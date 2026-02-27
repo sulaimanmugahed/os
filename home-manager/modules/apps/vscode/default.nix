@@ -18,7 +18,7 @@ let
 in
 {
   imports = [
-
+     ./activation.nix
   ];
 
   programs.vscode = {
@@ -27,9 +27,7 @@ in
     mutableExtensionsDir = true;
     profiles = {
       default = {
-        enableUpdateCheck = false;
-        enableExtensionUpdateCheck = false;
-      } // mkProfile [ ];
+      } // mkProfile [];
       csharp = mkProfile csharpExtensions;
     };
   };
