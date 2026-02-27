@@ -18,11 +18,6 @@
   environment.systemPackages = with pkgs; [
 
     vscode
-    # (dotnetCorePackages.combinePackages [
-    #   dotnetCorePackages.sdk_10_0-bin
-    #   dotnetCorePackages.sdk_9_0-bin
-    # ])
-
     pkgs.nodePackages_latest.nodejs
     git
     pandoc

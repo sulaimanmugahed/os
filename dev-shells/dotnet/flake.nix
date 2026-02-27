@@ -31,14 +31,38 @@
           ];
       in
       {
-        devShells.default = pkgs.mkShell {
-          name = "dotnet";
-          buildInputs = deps;
-          shellHook = ''
-            export DOTNET_ROOT="${dotnetPkg}/share/dotnet"
-            export PATH="$DOTNET_ROOT/bin:$PATH"
-          '';
-        };
+        devShells.default = pkgs.mkShell
+          {
+            name = "dotnet";
+            buildInputs = deps;
+            nativeBuildInputs = with pkgs;[
+              nix-ld
+            ];
+            NIX_LD_LIBRARY_PATH =
+              with pkgs; lib.makeLibraryPath (
+                [
+                  stdenv.cc.cc
+                ]
+              );
+            LD_LIBRARY_PATH =
+              with pkgs; lib.makeLibraryPath
+                (
+                  [
+                    stdenv.cc.cc
+                    fontconfig
+                    xorg.libX11
+                    xorg.libICE
+                    xorg.libSM
+                    libGL
+                    gtk4
+                    libadwaita
+                  ]
+                );
+            NIX_LD = "${pkgs.stdenv.cc.libc_bin}/bin/ld.so";
+
+            DOTNET_ROOT = "${dotnetPkg}/share/dotnet";
+            DOTNET_PATH = "${dotnetPkg}/bin/dotnet";
+          };
       }
     );
 }
