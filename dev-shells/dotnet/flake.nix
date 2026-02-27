@@ -28,13 +28,14 @@
             zlib.dev
             openssl
             dotnetPkg
+            blueprint-compiler
           ];
       in
       {
         devShells.default = pkgs.mkShell
           {
             name = "dotnet";
-            buildInputs = deps;
+            packages = deps;
             nativeBuildInputs = with pkgs;[
               nix-ld
             ];
