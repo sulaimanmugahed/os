@@ -2,7 +2,7 @@
 let
 
   baseExtensions = with pkgs.vscode-extensions;[
-
+    jnoortheen.nix-ide
   ];
 
   csharpExtensions = with pkgs.vscode-extensions;[
@@ -17,9 +17,14 @@ let
 
 in
 {
+  imports = [
+
+  ];
+
   programs.vscode = {
     enable = true;
     package = pkgs.vscode-fhs;
+    mutableExtensionsDir = true;
     profiles = {
       default = {
         enableUpdateCheck = false;
