@@ -8,11 +8,10 @@
 }:
 
 let
-  dotnetPkg = with pkgs;
-          (dotnetCorePackages.combinePackages [
-            dotnetCorePackages.sdk_10_0-bin
-            dotnetCorePackages.sdk_9_0-bin
-          ]);
+  dotnetPkg = pkgs.dotnetCorePackages.combinePackages [
+    pkgs.dotnetCorePackages.sdk_10_0-bin
+    pkgs.dotnetCorePackages.sdk_9_0-bin
+  ];
 
 in
 {

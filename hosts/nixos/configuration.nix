@@ -18,7 +18,6 @@
   environment.systemPackages = with pkgs; [
 
     pkgs.nodePackages_latest.nodejs
-    git
     pandoc
     pkgs.powershell
     telegram-desktop
@@ -33,4 +32,3 @@
   services.openssh.enable = true;
 
 }
-
