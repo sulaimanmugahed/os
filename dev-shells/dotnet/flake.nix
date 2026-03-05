@@ -28,7 +28,6 @@
             zlib.dev
             openssl
             dotnetPkg
-            blueprint-compiler
           ];
       in
       {

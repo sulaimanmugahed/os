@@ -1,6 +1,5 @@
 {
   imports = [
-    ./apps
-    ./sdks
+    ./dotnet
   ];
 }
