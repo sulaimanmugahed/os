@@ -12,7 +12,7 @@ let
       mktplcRef = {
         publisher = "ms-dotnettools";
         name = "csharp";
-        version = "2.120.3";
+        version = "2.123.34";
         sha256 = "sha256-dRNmjuV2lwa9Xe0M4LDOvCW80gVA1NcZHNeo7E4rqMo=";
       };
     })
@@ -20,7 +20,7 @@ let
       mktplcRef = {
         publisher = "ms-dotnettools";
         name = "csdevkit";
-        version = "2.10.3";
+        version = "2.13.9";
         sha256 = "sha256-8oxIWjOCee5nxlJZZ58TZqNxZUrGltQnqr0L4u7LMNY=";
       };
     })
