@@ -1,18 +1,15 @@
 { config, pkgs, lib, ... }:
 let
 
-  baseExtensions = with pkgs.vscode-extensions;[
+  defaultExtensions = with pkgs.vscode-extensions;[
     jnoortheen.nix-ide
-  ];
-
-  csharpExtensions = with pkgs.vscode-extensions;[
     ms-dotnettools.csharp
     ms-dotnettools.csdevkit
     ms-dotnettools.vscode-dotnet-runtime
   ];
 
-  mkProfile = extra: {
-    extensions = lib.unique (baseExtensions ++ extra);
+  mkProfile = exts: {
+    extensions = exts;
   };
 
 in
@@ -26,9 +23,7 @@ in
     package = pkgs.vscode-fhs;
     mutableExtensionsDir = true;
     profiles = {
-      default = {
-      } // mkProfile [];
-      csharp = mkProfile csharpExtensions;
+      default = mkProfile defaultExtensions;
     };
   };
 }

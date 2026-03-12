@@ -1,12 +1,18 @@
-{ homeStateVersion
-, user
-, constants
-, ...
+{
+  homeStateVersion,
+  user,
+  pkgs,
+  constants,
+  ...
 }:
 
 {
   imports = [
     ./modules
+  ];
+
+  home.packages = with pkgs; [
+
   ];
 
   home = {
@@ -44,14 +50,13 @@
     STRIPE_CLI_TELEMETRY_OPTOUT = "1";
   };
 
-
   programs = {
     home-manager.enable = true;
-    bash={
-      enable= true;
+    bash = {
+      enable = true;
       initExtra = ''
-      . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
-    '';
+        . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+      '';
     };
     git = {
       enable = true;
@@ -67,8 +72,5 @@
     };
 
   };
-
-
-
 
 }

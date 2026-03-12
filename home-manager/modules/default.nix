@@ -1,6 +1,6 @@
 {
   imports = [
     ./apps
-    ./sdks
+    ./dev-languages
   ];
 }

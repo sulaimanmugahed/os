@@ -10,19 +10,8 @@ let
   settingsJson = builtins.toJSON {
     "workbench.colorTheme" = "Gruvbox Dark Soft";
     "workbench.iconTheme" = "vs-seti";
-    "workbench.activityBar.location" = "top";
-    "workbench.sideBar.location" = "right";
-    "workbench.layoutControl.enabled" = false;
-    "workbench.navigationControl.enabled" = false;
-    "workbench.startupEditor" = "none";
-    "window.commandCenter" = false;
-    "window.menuBarVisibility" = "toggle";
-    "window.titleBarStyle" = "custom";
-    "chat.commandCenter.enabled" = false;
     "editor.fontFamily" = "'${constants.font.mono}', 'Noto Color Emoji', monospace";
     "editor.fontSize" = constants.font.size;
-    "editor.fontLigatures" = true;
-    "editor.minimap.enabled" = false;
     "editor.renderWhitespace" = "boundary";
     "editor.bracketPairColorization.enabled" = true;
     "editor.guides.bracketPairs" = "active";
@@ -32,21 +21,8 @@ let
     "editor.linkedEditing" = true;
     "editor.stickyScroll.enabled" = true;
     "editor.inlineSuggest.enabled" = true;
-    "editor.wordWrap" = "off";
-    "editor.tabSize" = 2;
-    "editor.insertSpaces" = true;
-    "editor.detectIndentation" = true;
     "editor.formatOnSave" = true;
-    "editor.formatOnPaste" = false;
-    "editor.codeActionsOnSave" = {
-      "source.fixAll" = "explicit";
-      "source.organizeImports" = "explicit";
-    };
-    "files.trimTrailingWhitespace" = true;
-    "files.insertFinalNewline" = true;
-    "files.trimFinalNewlines" = true;
-    "files.autoSave" = "afterDelay";
-    "files.autoSaveDelay" = 1000;
+    "files.autoSave" = "onFocusChange";
     "files.exclude" = {
       "**/.git" = true;
       "**/.DS_Store" = true;
@@ -69,10 +45,7 @@ let
     "terminal.integrated.defaultProfile.linux" = "zsh";
     "terminal.integrated.smoothScrolling" = true;
     "terminal.integrated.gpuAcceleration" = "on";
-    "explorer.confirmDelete" = false;
-    "explorer.confirmDragAndDrop" = false;
-    "explorer.sortOrder" = "type";
-    "explorer.compactFolders" = false;
+
     "search.exclude" = {
       "**/node_modules" = true;
       "**/result" = true;
@@ -92,6 +65,7 @@ let
         nix.flake.autoArchive = true;
       };
     };
+
     "python.analysis.typeCheckingMode" = "basic";
     "python.analysis.autoImportCompletions" = true;
     "[python]" = {
@@ -196,12 +170,10 @@ let
     "telemetry.telemetryLevel" = "off";
     "redhat.telemetry.enabled" = false;
     "security.workspace.trust.enabled" = true;
-    "window.zoomLevel" = 0.5;
   };
 in
 {
-  # Settings managed via activation script (writable file, not nix store symlink).
-  # Extensions can modify settings at runtime; `just home` resets to baseline.
+
   home.activation.vscodeWritableSettings = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     SETTINGS_DIR="$HOME/.config/Code/User"
     SETTINGS_FILE="$SETTINGS_DIR/settings.json"

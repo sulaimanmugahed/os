@@ -1,5 +1,7 @@
 {
   imports = [
     ./dotnet
+    ./nix
+    ./javascript
   ];
 }
