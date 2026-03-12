@@ -1,11 +1,17 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
-
-  defaultExtensions = with pkgs.vscode-extensions;[
+  marketplace = pkgs.vscode-utils.buildVscodeMarketplaceExtension;
+  defaultExtensions = with pkgs.vscode-extensions; [
     jnoortheen.nix-ide
     ms-dotnettools.csharp
     ms-dotnettools.csdevkit
     ms-dotnettools.vscode-dotnet-runtime
+    streetsidesoftware.code-spell-checker
   ];
 
   mkProfile = exts: {
@@ -15,7 +21,7 @@ let
 in
 {
   imports = [
-     ./activation.nix
+    ./activation.nix
   ];
 
   programs.vscode = {

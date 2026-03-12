@@ -18,8 +18,6 @@
   ];
 
   environment.systemPackages = with pkgs; [
-
-    pkgs.nodePackages_latest.nodejs
     pandoc
     pkgs.powershell
     telegram-desktop
