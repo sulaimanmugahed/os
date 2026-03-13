@@ -17,15 +17,6 @@
     "flakes"
   ];
 
-  environment.systemPackages = with pkgs; [
-    pandoc
-    pkgs.powershell
-    telegram-desktop
-    wireguard-tools
-    protonvpn-gui
-    #pkgs.jetbrains.rider
-  ];
-
   services.openssh.enable = true;
 
 }
