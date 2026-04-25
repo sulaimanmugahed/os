@@ -11,11 +11,12 @@
   };
 
   outputs =
-    { nixpkgs
-    , home-manager
+    {
+      nixpkgs,
+      home-manager,
 
       # , nixpkgs-unstable
-    , ...
+      ...
     }@inputs:
     let
       system = "x86_64-linux";
@@ -43,6 +44,7 @@
           inherit system;
           config = {
             allowUnfree = true;
+            android_sdk.accept_license = true;
           };
         }
       );
@@ -73,42 +75,34 @@
           modules = [ ./hosts/${hostname}/configuration.nix ];
         };
 
-
     in
     {
-      nixosConfigurations = nixpkgs.lib.foldl'
-        (
-          configs: host:
-            configs // { "${host.hostname}" = makeSystem { inherit (host) hostname stateVersion; }; }
-        )
-        { }
-        hosts;
+      nixosConfigurations = nixpkgs.lib.foldl' (
+        configs: host:
+        configs // { "${host.hostname}" = makeSystem { inherit (host) hostname stateVersion; }; }
+      ) { } hosts;
 
-      homeConfigurations = nixpkgs.lib.foldl'
-        (
-          configs: host:
-            configs
-            // {
-              "${user}@${host.hostname}" = home-manager.lib.homeManagerConfiguration {
-                inherit pkgs;
-                extraSpecialArgs = {
-                  inherit
-                    inputs
-                    homeStateVersion
-                    user
-                    constants
-                    ;
-                  inherit (host) hostname;
-                };
-                modules = [
-                  ./home-manager/home.nix
-                ];
-              };
-            }
-        )
-        { }
-        hosts;
-
+      homeConfigurations = nixpkgs.lib.foldl' (
+        configs: host:
+        configs
+        // {
+          "${user}@${host.hostname}" = home-manager.lib.homeManagerConfiguration {
+            inherit pkgs;
+            extraSpecialArgs = {
+              inherit
+                inputs
+                homeStateVersion
+                user
+                constants
+                ;
+              inherit (host) hostname;
+            };
+            modules = [
+              ./home-manager/home.nix
+            ];
+          };
+        }
+      ) { } hosts;
 
     };
 }

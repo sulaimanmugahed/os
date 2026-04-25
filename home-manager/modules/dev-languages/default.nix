@@ -3,5 +3,6 @@
     ./dotnet
     ./nix
     ./javascript
+    ./android
   ];
 }

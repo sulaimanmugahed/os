@@ -17,4 +17,6 @@
 
   services.openssh.enable = true;
 
+  programs.adb.enable = true;
+
 }

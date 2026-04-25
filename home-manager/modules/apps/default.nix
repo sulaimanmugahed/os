@@ -4,5 +4,6 @@
     ./proton
     ./telegram
     ./firefox
+    ./brave
   ];
 }

@@ -140,6 +140,10 @@ let
       "ngClass"
       "class:list"
     ];
+    "tailwindCSS.experimental.classRegex" = [
+      "tva\\((([^()]*|\\([^()]*\\))*)\\)"
+      "[\"'`]([^\"'`]*).*?[\"'`]"
+    ];
     "headwind.runOnSave" = true;
     "errorLens.gutterIconsEnabled" = true;
     "errorLens.messageMaxChars" = 120;
