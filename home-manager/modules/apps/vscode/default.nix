@@ -57,6 +57,8 @@ let
       };
     })
 
+    denoland.vscode-deno
+
     #databases
     (marketplace {
       mktplcRef = {
