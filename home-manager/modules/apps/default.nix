@@ -5,5 +5,6 @@
     ./telegram
     ./firefox
     ./brave
+    ./obsidian
   ];
 }
