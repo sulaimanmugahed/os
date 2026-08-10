@@ -6,5 +6,6 @@
     ./firefox
     ./brave
     ./obsidian
+    ./onlyoffice
   ];
 }
