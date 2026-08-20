@@ -8,5 +8,6 @@
     ./obsidian
     ./onlyoffice
     ./libreoffice
+    ./gpu-screen-recorder
   ];
 }

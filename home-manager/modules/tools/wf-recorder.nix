@@ -6,7 +6,7 @@
 {
   home = {
     packages = with pkgs; [
-      ffmpeg-full
+      wf-recorder
     ];
   };
 }

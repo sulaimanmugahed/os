@@ -6,7 +6,7 @@
 {
   home = {
     packages = with pkgs; [
-      ffmpeg-full
+      gpu-screen-recorder-gtk
     ];
   };
 }

@@ -4,5 +4,6 @@
     ./powershell.nix
     ./supabase.nix
     ./ffmpeg.nix
+    ./wf-recorder.nix
   ];
 }
