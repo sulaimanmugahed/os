@@ -3,5 +3,6 @@
     ./pandoc.nix
     ./powershell.nix
     ./supabase.nix
+    ./ffmpeg.nix
   ];
 }

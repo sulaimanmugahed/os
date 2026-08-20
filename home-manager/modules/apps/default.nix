@@ -7,5 +7,6 @@
     ./brave
     ./obsidian
     ./onlyoffice
+    ./libreoffice
   ];
 }
